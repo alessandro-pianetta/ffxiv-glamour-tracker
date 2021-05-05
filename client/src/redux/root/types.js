@@ -1,0 +1,13 @@
+export const GET_USER_START = "ROOT/get_user_start";
+export const GET_USER_SUCCESS = "ROOT/get_user_success";
+export const GET_USER_FAIL = "ROOT/get_user_fail";
+export const ADD_DUNGEON_START = "ROOT/add_dungeon_start";
+export const ADD_DUNGEON_SUCCESS = "ROOT/add_dungeon_success";
+export const ADD_DUNGEON_FAIL = "ROOT/add_dungeon_fail";
+export const REMOVE_DUNGEON_START = "ROOT/remove_dungeon_start";
+export const REMOVE_DUNGEON_SUCCESS = "ROOT/remove_dungeon_success";
+export const REMOVE_DUNGEON_FAIL = "ROOT/remove_dungeon_fail";
+export const CHANGE_ITEM_STATUS_START = "ROOT/change_item_status_start";
+export const CHANGE_ITEM_STATUS_SUCCESS = "ROOT/change_item_status_success";
+export const CHANGE_ITEM_STATUS_FAIL = "ROOT/change_item_status_fail";
+export const RESET_STATE = "ROOT/reset_state";

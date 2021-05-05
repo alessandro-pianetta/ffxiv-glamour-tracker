@@ -6,7 +6,7 @@ import { removeDungeon } from "../../redux/root/actions";
 import Gearset from "../Gearset";
 
 export default function (props) {
-	const [isCollapsed, setIsCollapsed] = useState(false);
+	const [isCollapsed, setIsCollapsed] = useState(true);
 	const dispatch = useDispatch();
 	const { dungeonName, gearsets = {}, expansion, _id, loading } = props;
 	const gearsetNames = Object.keys(gearsets);
