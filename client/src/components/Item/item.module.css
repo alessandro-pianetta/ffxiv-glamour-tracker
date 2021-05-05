@@ -1,0 +1,24 @@
+.container {
+	display: flex;
+	max-width: min-content;
+	border-radius: 12px;
+	border: 5px solid black;
+	margin: 0.5rem;
+}
+
+.default {
+	border-style: double;
+}
+
+.want {
+	border-color: green;
+}
+
+.have {
+	border-color: red;
+}
+
+.icon {
+	height: 50px;
+	width: 50px;
+}

@@ -1,0 +1,27 @@
+.modal90w {
+	min-width: 90%;
+}
+
+.toast {
+	position: fixed;
+	min-width: "25%";
+	top: 25;
+	right: 25;
+}
+.menuContainer {
+	background-color: white;
+}
+
+.dungeonContainer {
+	text-align: center;
+	margin-bottom: 1.3rem;
+}
+
+.dungeonItem {
+	font-size: 1.2rem;
+}
+
+.dungeonName {
+	text-decoration: underline;
+	margin-bottom: 1rem;
+}

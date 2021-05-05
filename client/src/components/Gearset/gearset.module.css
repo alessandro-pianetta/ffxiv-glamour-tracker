@@ -1,0 +1,54 @@
+.container {
+	display: flex;
+	text-align: left;
+	flex-direction: column;
+}
+
+.gearsetHeader {
+	display: flex;
+	align-items: center;
+}
+
+.gearsetCategoryName {
+	font-size: 1.2rem;
+	padding-top: 0.5rem;
+	white-space: nowrap;
+}
+
+.icon {
+	height: 1.5rem;
+	width: 1.5rem;
+	margin-right: 0.5rem;
+}
+
+.item-container {
+	display: flex;
+	justify-content: space-around;
+}
+
+.largeGearset {
+	flex-wrap: wrap;
+}
+
+@media screen and (min-width: 1080px) {
+	.container {
+		align-items: center;
+		align-content: space-around;
+		margin: 0 1.5rem;
+	}
+
+	.gearsetHeader {
+		text-align: center;
+		min-height: 6rem;
+	}
+
+	.gearsetCategoryName {
+		white-space: pre-line;
+	}
+
+	.item-container {
+		flex-wrap: wrap;
+		flex-direction: column;
+		align-content: center;
+	}
+}

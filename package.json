@@ -3,15 +3,21 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "cd src/server && npm install && npm start",
-    "dev": "concurrently \"cd src/server && nodemon\" \"cd src/client && npm start\"",
+    "start": "cd ./server && yarn && npm start",
+    "install": "concurrently \"cd ./server && yarn\" \"cd ./client && yarn\"",
+    "dev": "concurrently \"cd ./server && nodemon\" \"cd ./client && npm start\"",
     "logs": "heroku logs -t",
-    "heroku-postbuild": "cd src/client && npm install && npm run build"
+    "heroku-postbuild": "cd ./client && yarn && npm run build"
   },
-  "dependencies": {},
   "engines": {
     "node": ">=12.16.1",
     "npm": ">=6.13.4"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "prettier": "2.2.1"
+  },
+  "dependencies": {
+    "bootstrap": "^4.6.0",
+    "react-bootstrap": "^1.5.2"
+  }
 }

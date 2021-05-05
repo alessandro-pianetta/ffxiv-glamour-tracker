@@ -1,0 +1,83 @@
+.container {
+	border: 1px solid gray;
+	border-radius: 10px;
+	margin-bottom: 3rem;
+	box-shadow: gray 5px 5px 10px;
+}
+
+.dungeonHeader {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding-top: 1rem;
+}
+
+.dungeonHeaderText {
+	text-align: center;
+	font-size: 2rem;
+	padding: 1rem 0.75rem 0.25rem;
+	width: max-content;
+	border-bottom: 1px solid black;
+}
+
+.buttonContainer {
+	display: flex;
+	flex: 1;
+	padding-left: 1rem;
+	transition: opacity 150ms ease-in-out;
+	opacity: 1;
+}
+
+.rightButton {
+	justify-content: flex-end;
+	padding: 0 1rem 0 0;
+}
+
+.paddingOnly {
+	border-color: transparent;
+}
+
+.dungeonContainer {
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	transition: all 150ms ease-in-out;
+	padding: 1rem;
+	max-height: 1000px;
+	opacity: 1;
+}
+
+.loading {
+	margin: 3rem;
+	align-items: center;
+}
+
+.buttonContainer.isLoading {
+	opacity: 0;
+}
+
+.dungeonHeaderText.isCollapsed {
+	border-bottom: none;
+}
+
+.dungeonContainer.isCollapsed {
+	max-height: 0;
+	opacity: 0;
+	padding-top: 0;
+}
+
+@media screen and (min-width: 1080px) {
+	.buttonContainer {
+		padding: 2rem;
+	}
+
+	.dungeonContainer {
+		flex-direction: row;
+		justify-content: center;
+		padding-bottom: 2rem;
+	}
+
+	.dungeonContainer.isCollapsed {
+		padding-bottom: 1rem;
+	}
+}
