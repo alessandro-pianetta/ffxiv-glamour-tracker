@@ -2,6 +2,8 @@ import * as types from "./types";
 import produce from "immer";
 
 const INITIAL_STATE = {
+	userID: "payload._id",
+	email: "",
 	authenticated: false,
 	loading: false,
 	error: "",
@@ -22,6 +24,20 @@ export default (state = INITIAL_STATE, { type, payload }) =>
 			case types.USER_AUTH_FAIL:
 				draft.loading = false;
 				draft.error = payload;
+				break;
+
+			case types.GET_USER_START:
+				draft.loading = true;
+				break;
+
+			case types.GET_USER_SUCCESS:
+				draft.userID = payload._id;
+				draft.email = payload.email;
+				draft.loading = false;
+				break;
+
+			case types.GET_USER_FAIL:
+				draft.loading = false;
 				break;
 
 			case types.LOGOUT_START:

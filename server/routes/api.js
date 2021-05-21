@@ -31,7 +31,10 @@ router.get("/user", async function (req, res) {
 		// Check if user exists
 		const user = await db.User.findById(userID);
 		if (!user) {
-			return res.status(400).send("User cannot be found.");
+			res.statusMessage =
+				"Sorry, that user doesn't exist. Please try signing up.";
+
+			return res.status(404).end();
 		}
 		return res.status(200).send(user);
 	} catch (error) {
@@ -53,7 +56,8 @@ router.post("/dungeon", async function (req, res) {
 		});
 		const content = await response.json();
 		if (!content || !content.Results.length) {
-			return res.status(400).send("Did not receive any results.");
+			res.statusMessage = "Sorry, did not receive any results.";
+			return res.status(204).end();
 		}
 		// removes unwanted items that make it through params set in XIVAPI query and categorizes based on gearset names
 		const dungeon = {
@@ -71,7 +75,9 @@ router.post("/dungeon", async function (req, res) {
 		// Check if user exists
 		const user = await db.User.findById(userID);
 		if (!user) {
-			return res.status(400).send("User cannot be found.");
+			res.statusMessage =
+				"Sorry, that user doesn't exist. Please try signing up.";
+			return res.status(404).end();
 		}
 
 		// Check if user already has target dungeon, and if not save dungeon to user
@@ -81,7 +87,8 @@ router.post("/dungeon", async function (req, res) {
 			(existingDungeon) => existingDungeon.dungeonName === dungeonName
 		);
 		if (dungeonDoesExist) {
-			return res.status(400).send("Dungeon already added to user!");
+			res.statusMessage = `${dungeonName} has already been added to your list!`;
+			return res.status(304).end();
 		}
 		user.dungeons.push(newDungeon);
 		user.save();
@@ -103,7 +110,9 @@ router.delete("/dungeon", async function (req, res) {
 		// Check if user exists
 		const user = await db.User.findById(userID);
 		if (!user) {
-			return res.status(400).send("User cannot be found.");
+			res.statusMessage =
+				"Sorry, that user doesn't exist. Please try signing up.";
+			return res.status(404).end();
 		}
 
 		// Check if dungeon exists in user object
@@ -111,7 +120,10 @@ router.delete("/dungeon", async function (req, res) {
 			(existingDungeon) => existingDungeon.id === dungeonID
 		);
 		if (!dungeonDoesExist) {
-			return res.status(400).send("Dungeon does not exist on user.");
+			res.statusMessage =
+				"Sorry, that dungeon could not be found. Please try again, or contact the administrator if you are still having problems.";
+
+			return res.status(304).end();
 		}
 
 		// Find and remove dungeon from user
@@ -135,7 +147,9 @@ router.patch("/item", async function (req, res) {
 		// Check if user exists
 		const user = await db.User.findById(userID);
 		if (!user) {
-			return res.status(400).send("User cannot be found.");
+			res.statusMessage =
+				"Sorry, that user doesn't exist. Please try signing up.";
+			return res.status(404).end();
 		}
 
 		// Check if dungeon exists in user object
@@ -143,7 +157,10 @@ router.patch("/item", async function (req, res) {
 			(existingDungeon) => existingDungeon.id === dungeonID
 		);
 		if (!dungeonDoesExist) {
-			return res.status(400).send("Dungeon does not exist on user.");
+			res.statusMessage =
+				"Sorry, that dungeon could not be found. Please try again, or contact the administrator if you are still having problems.";
+
+			return res.status(304).end();
 		}
 
 		let targetItem = user.dungeons

@@ -5,37 +5,18 @@ import { getItemJob } from "../../utils/itemUtils";
 import * as types from "./types";
 
 const INITIAL_STATE = {
-	userID: "",
-	email: "",
 	dungeons: [],
 	loading: false,
-	error: "",
-	message: "",
 };
 
 export default (state = INITIAL_STATE, { type, payload }) => {
 	return produce(state, (draft) => {
 		switch (type) {
-			case types.GET_USER_START:
-				draft.error = "";
-				draft.loading = true;
-				break;
-
-			case types.GET_USER_SUCCESS:
-				draft.userID = payload._id;
-				draft.email = payload.email;
-				draft.dungeons = payload.dungeons;
-				draft.loading = false;
-				break;
-
-			case types.GET_USER_FAIL:
-				draft.loading = false;
-				draft.error = payload;
+			case types.SET_DUNGEONS:
+				draft.dungeons = payload;
 				break;
 
 			case types.ADD_DUNGEON_START:
-				draft.error = "";
-				draft.message = "";
 				draft.loading = true;
 				draft.dungeons.push({ loading: true });
 				break;
@@ -46,24 +27,16 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 						...payload,
 						loading: false,
 					};
-					draft.message = `${payload.dungeonName} has been successfully added to your list!`;
-				} else {
-					draft.error = `${payload.dungeonName} has already been added to your list.`;
 				}
 				draft.loading = false;
-				console.log(payload);
-
 				break;
 
 			case types.ADD_DUNGEON_FAIL:
+				delete draft.dungeons[state.dungeons.length - 1];
 				draft.loading = false;
-				draft.dungeons.pop();
-				draft.error = payload;
 				break;
 
 			case types.REMOVE_DUNGEON_START:
-				draft.error = "";
-				draft.message = "";
 				draft.loading = true;
 				break;
 
@@ -77,12 +50,9 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 
 			case types.REMOVE_DUNGEON_FAIL:
 				draft.loading = false;
-				draft.error = payload;
 				break;
 
 			case types.CHANGE_ITEM_STATUS_START:
-				draft.error = "";
-				draft.message = "";
 				draft.loading = true;
 				break;
 
@@ -101,7 +71,6 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 
 			case types.CHANGE_ITEM_STATUS_FAIL:
 				draft.loading = false;
-				draft.error = payload;
 				break;
 
 			case types.RESET_STATE:

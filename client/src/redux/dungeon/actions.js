@@ -3,6 +3,7 @@ import * as types from "./types";
 import { asyncActionCreator } from "../actionCreatorBase";
 import { updateItemStatus } from "../../utils/itemUtils";
 import { getCookie } from "../../utils/cookieUtils";
+import { setSuccessMessage } from "../notification/actions";
 
 const DB_URL = "http://localhost:4000/api";
 const userID = getCookie("userID");
@@ -13,22 +14,18 @@ const config = {
 	},
 };
 
-export function getUser(id = userID) {
-	return asyncActionCreator({
-		types,
-		baseType: "GET_USER",
-		callback: async () => {
-			const response = await axios.get(`${DB_URL}/user/?userID=${id}`, config);
-			return response.data;
-		},
-	});
+export function setDungeons(dungeons) {
+	return {
+		type: types.SET_DUNGEONS,
+		payload: dungeons,
+	};
 }
 
 export function addDungeon(dungeonName, gearsetInfo, expansion) {
 	return asyncActionCreator({
 		types,
 		baseType: "ADD_DUNGEON",
-		callback: async () => {
+		callback: async (dispatch) => {
 			const response = await axios.post(
 				`${DB_URL}/dungeon`,
 				{
@@ -38,7 +35,14 @@ export function addDungeon(dungeonName, gearsetInfo, expansion) {
 				},
 				config
 			);
-			console.log(response);
+
+			if (response.status !== 200) {
+				throw response.statusText;
+			}
+
+			dispatch(
+				setSuccessMessage(`Success! Added ${dungeonName} to your list!`)
+			);
 			return { ...response.data, expansion };
 		},
 	});
@@ -48,7 +52,7 @@ export function removeDungeon(dungeonID) {
 	return asyncActionCreator({
 		types,
 		baseType: "REMOVE_DUNGEON",
-		callback: async () => {
+		callback: async (dispatch) => {
 			const response = await axios.delete(
 				`${DB_URL}/dungeon?userID=${userID}&dungeonID=${dungeonID}`,
 				{
@@ -57,11 +61,13 @@ export function removeDungeon(dungeonID) {
 				},
 				config
 			);
-			if ((response.status = 200)) {
-				return dungeonID;
-			} else {
-				throw response.data;
+
+			if (response.status !== 200) {
+				throw response.statusText;
 			}
+
+			dispatch(setSuccessMessage(`Dungeon Removed!`));
+			return dungeonID;
 		},
 	});
 }
@@ -70,7 +76,7 @@ export function changeItemStatus(item, dungeonName, gearsetType, dungeonID) {
 	return asyncActionCreator({
 		types,
 		baseType: "CHANGE_ITEM_STATUS",
-		callback: async () => {
+		callback: async (dispatch) => {
 			const updatedItem = updateItemStatus(item);
 			const response = await axios.patch(`${DB_URL}/item`, {
 				item: updatedItem,
@@ -79,11 +85,15 @@ export function changeItemStatus(item, dungeonName, gearsetType, dungeonID) {
 				gearsetType,
 				userID,
 			});
-			if ((response.status = 200)) {
-				return { item: updatedItem, dungeonName };
-			} else {
-				throw response.data;
+
+			console.log(item);
+
+			if (response.status !== 200) {
+				throw response.statusText;
 			}
+
+			dispatch(setSuccessMessage(`${item.Name_en} status updated!`));
+			return { item: updatedItem, dungeonName };
 		},
 	});
 }

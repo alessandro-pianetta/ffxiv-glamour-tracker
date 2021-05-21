@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./item.module.css";
 import { useDispatch } from "react-redux";
-import { changeItemStatus } from "../../redux/root/actions";
+import { changeItemStatus } from "../../redux/dungeon/actions";
 
 // ClassJobCategoryTargetID: 63
 // EquipSlotCategoryTargetID: 7

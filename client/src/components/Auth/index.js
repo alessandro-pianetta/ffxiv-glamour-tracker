@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./auth.module.css";
 import { Button, Modal, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { getUser } from "../../redux/root/actions";
+import { getUser } from "../../redux/auth/actions";
 import {
 	registerOrAuthenticateUser,
 	logUserOut,

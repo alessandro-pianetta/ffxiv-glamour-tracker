@@ -48,12 +48,15 @@
 }
 
 .loading {
-	margin: 3rem;
+	display: flex;
+	flex-direction: column;
 	align-items: center;
+	padding: 2rem 0 0.75rem;
 }
 
-.buttonContainer.isLoading {
-	opacity: 0;
+.loadingText {
+	margin-top: 1rem;
+	font-size: 1.25rem;
 }
 
 .dungeonHeaderText.isCollapsed {

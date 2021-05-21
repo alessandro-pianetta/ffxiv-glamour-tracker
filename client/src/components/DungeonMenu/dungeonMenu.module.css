@@ -2,12 +2,6 @@
 	min-width: 90%;
 }
 
-.toast {
-	position: fixed;
-	min-width: "25%";
-	top: 25;
-	right: 25;
-}
 .menuContainer {
 	background-color: white;
 }

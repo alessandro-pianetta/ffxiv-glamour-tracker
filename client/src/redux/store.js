@@ -1,8 +1,9 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import thunkMiddleware from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-import rootReducer from "./root/reducer";
+import dungeonReducer from "./dungeon/reducer";
 import authReducer from "./auth/reducer";
+import notificationReducer from "./notification/reducer";
 
 const configureStore = (initialState = undefined) => {
 	const middleware = [thunkMiddleware];
@@ -10,8 +11,9 @@ const configureStore = (initialState = undefined) => {
 	const enhancers = [middlewareEnhancer];
 	const composedEnhancers = composeWithDevTools(...enhancers);
 	const reducers = combineReducers({
-		root: rootReducer,
+		dungeon: dungeonReducer,
 		auth: authReducer,
+		notification: notificationReducer,
 	});
 
 	const store = createStore(reducers, initialState, composedEnhancers);

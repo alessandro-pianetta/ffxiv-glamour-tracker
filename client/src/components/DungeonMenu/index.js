@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styles from "./dungeonMenu.module.css";
 import { useDispatch } from "react-redux";
-import { Modal, Toast, Button, Container, Row, Col } from "react-bootstrap";
-import { addDungeon } from "../../redux/root/actions";
+import { Modal, Button, Container, Row, Col } from "react-bootstrap";
+import { addDungeon } from "../../redux/dungeon/actions";
 import dungeons from "../../consts/dungeons";
 import raids from "../../consts/raids";
 

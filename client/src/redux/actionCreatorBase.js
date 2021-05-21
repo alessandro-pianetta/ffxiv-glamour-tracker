@@ -1,3 +1,5 @@
+import { setErrorMessage } from "./notification/actions";
+
 export function asyncActionCreator({ types, baseType, callback }) {
 	return async (dispatch) => {
 		try {
@@ -5,18 +7,15 @@ export function asyncActionCreator({ types, baseType, callback }) {
 				type: types[`${baseType}_START`],
 			});
 			const payload = await callback(dispatch);
-			// if (payload.status === 200) {
 			return dispatch({
 				type: types[`${baseType}_SUCCESS`],
-				payload,
+				payload: payload,
 			});
-			// }
 		} catch (error) {
-			console.log(error);
-			return {
+			dispatch(setErrorMessage(error));
+			return dispatch({
 				type: types[`${baseType}_FAIL`],
-				payload: error,
-			};
+			});
 		}
 	};
 }
@@ -33,10 +32,10 @@ export function actionCreator({ types, baseType, callback }) {
 				payload,
 			});
 		} catch (error) {
-			return {
+			dispatch(setErrorMessage(error));
+			return dispatch({
 				type: types[`${baseType}_FAIL`],
-				payload: error,
-			};
+			});
 		}
 	};
 }

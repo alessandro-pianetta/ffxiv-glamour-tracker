@@ -1,0 +1,11 @@
+export const SET_DUNGEONS = "DUNGEON/set_dungeons";
+export const ADD_DUNGEON_START = "DUNGEON/add_dungeon_start";
+export const ADD_DUNGEON_SUCCESS = "DUNGEON/add_dungeon_success";
+export const ADD_DUNGEON_FAIL = "DUNGEON/add_dungeon_fail";
+export const REMOVE_DUNGEON_START = "DUNGEON/remove_dungeon_start";
+export const REMOVE_DUNGEON_SUCCESS = "DUNGEON/remove_dungeon_success";
+export const REMOVE_DUNGEON_FAIL = "DUNGEON/remove_dungeon_fail";
+export const CHANGE_ITEM_STATUS_START = "DUNGEON/change_item_status_start";
+export const CHANGE_ITEM_STATUS_SUCCESS = "DUNGEON/change_item_status_success";
+export const CHANGE_ITEM_STATUS_FAIL = "DUNGEON/change_item_status_fail";
+export const RESET_STATE = "DUNGEON/reset_state";

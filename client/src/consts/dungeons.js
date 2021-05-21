@@ -257,6 +257,7 @@ export default {
 	"The Swallow's Compass": { gearsetName: "bonewicca", itemLevel: 345 },
 	"Saint Mocianne's Arboretum (Hard)": {
 		gearsetName: "Royal Volunteer's",
+		// gearsetName: "royal volunteer's",
 		itemLevel: 355,
 	},
 	"The Burn": { gearsetName: "royal volunteer's", itemLevel: 355 },
