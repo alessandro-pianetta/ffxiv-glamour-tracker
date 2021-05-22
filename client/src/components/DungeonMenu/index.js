@@ -56,7 +56,9 @@ export default function () {
 				dialogClassName={styles.modal90w}
 				onHide={() => setModal(!modalIsOpen)}
 			>
-				<Modal.Header closeButton />
+				<Modal.Header closeButton>
+					<Modal.Title>Dungeon & Raid Menu</Modal.Title>
+				</Modal.Header>
 
 				<Modal.Body>
 					<Container>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./dungeon.module.css";
-import { Button, Spinner } from "react-bootstrap";
+import { Modal, Button, Spinner } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { removeDungeon } from "../../redux/dungeon/actions";
 import Gearset from "../Gearset";
@@ -8,6 +8,8 @@ import Gearset from "../Gearset";
 export default function (props) {
 	const dispatch = useDispatch();
 	const [isCollapsed, setIsCollapsed] = useState(true);
+	const [showModal, setShowModal] = useState(false);
+
 	const { dungeonName, gearsets = {}, expansion, _id, loading } = props;
 	const gearsetNames = Object.keys(gearsets);
 
@@ -47,14 +49,40 @@ export default function (props) {
 						variant="outline-danger"
 						size="sm"
 						onClick={() => {
-							let answer = window.confirm(
-								`Would you like to delete data for ${dungeonName}?`
-							);
-							if (answer) dispatch(removeDungeon(_id));
+							setShowModal(true);
 						}}
 					>
-						Delete
+						Remove
 					</Button>
+					<Modal
+						show={showModal}
+						onHide={() => setShowModal(false)}
+						backdrop="static"
+						centered
+					>
+						<Modal.Header>
+							<Modal.Title>Remove dungeon?</Modal.Title>
+						</Modal.Header>
+
+						<Modal.Body>
+							<p>
+								Do you really want to remove {dungeonName} from your list? All
+								marked items will be lost.
+							</p>
+						</Modal.Body>
+
+						<Modal.Footer>
+							<Button variant="secondary" onClick={() => setShowModal(false)}>
+								Go Back
+							</Button>
+							<Button
+								variant="danger"
+								onClick={() => dispatch(removeDungeon(_id))}
+							>
+								Remove Dungeon
+							</Button>
+						</Modal.Footer>
+					</Modal>
 				</div>
 			</div>
 			<div

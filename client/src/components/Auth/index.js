@@ -16,7 +16,8 @@ export default function Auth() {
 	const [password, setPassword] = useState("");
 	const [passwordConfirm, setPasswordConfirm] = useState("");
 	const [path, setPath] = useState("login");
-	const [modalIsOpen, setModal] = useState(false);
+	const [loginModalIsOpen, setLoginModal] = useState(false);
+	const [logoutModalIsOpen, setLogoutModal] = useState(false);
 
 	useEffect(() => {
 		const loadUser = () => {
@@ -32,19 +33,46 @@ export default function Auth() {
 	if (userID) {
 		return (
 			<div className={styles.container}>
-				<Button variant="danger" onClick={() => dispatch(logUserOut())}>
+				<Button variant="danger" onClick={() => setLogoutModal(true)}>
 					Logout
 				</Button>
+				<Modal
+					show={logoutModalIsOpen}
+					onHide={() => setLogoutModal(false)}
+					backdrop="static"
+					centered
+				>
+					<Modal.Header>
+						<Modal.Title>Logout?</Modal.Title>
+					</Modal.Header>
+
+					<Modal.Body>
+						<p>Do you really want to logout?</p>
+					</Modal.Body>
+
+					<Modal.Footer>
+						<Button variant="secondary" onClick={() => setLogoutModal(false)}>
+							Go Back
+						</Button>
+						<Button variant="danger" onClick={() => dispatch(logUserOut())}>
+							Log Out
+						</Button>
+					</Modal.Footer>
+				</Modal>
 			</div>
 		);
 	}
 
 	return (
 		<div className={styles.container}>
-			<Button variant="success" onClick={() => setModal(true)}>
+			<Button variant="success" onClick={() => setLoginModal(true)}>
 				Login
 			</Button>
-			<Modal centered show={modalIsOpen} onHide={() => setModal(false)}>
+			<Modal
+				centered
+				show={loginModalIsOpen}
+				onHide={() => setLoginModal(false)}
+			>
 				<Form
 					onSubmit={(e) => {
 						e.preventDefault();
