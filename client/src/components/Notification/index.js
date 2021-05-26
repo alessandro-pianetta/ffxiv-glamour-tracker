@@ -4,17 +4,6 @@ import { Alert, Toast } from "react-bootstrap";
 import styles from "./notification.module.css";
 import { removeNotification } from "../../redux/notification/actions";
 
-const toastBodyStyle = {
-	padding: 0,
-	margin: 0,
-};
-
-const alertStyle = {
-	marginBottom: 0,
-	borderTopLeftRadius: 0,
-	borderTopRightRadius: 0,
-};
-
 export default function Notification({ alerts }) {
 	const dispatch = useDispatch();
 
