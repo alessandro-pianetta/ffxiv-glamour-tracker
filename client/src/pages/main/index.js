@@ -11,19 +11,23 @@ import Dungeon from "../../components/Dungeon";
 import Footer from "../../components/Footer";
 
 export default function () {
-	const [{ dungeons }, messages] = useSelector((store) => [
+	const [{ dungeons }, alerts] = useSelector((store) => [
 		store.dungeon,
-		store.notification,
+		store.alerts,
 	]);
 
 	return (
 		<>
 			<Header />
-			<Notification {...messages} />
+			<Notification {...alerts} />
 			<main className={styles.dungeonContainer}>
 				{dungeons.map((dungeon) => {
 					return (
-						<Dungeon key={`dungeon_${dungeon.dungeonName}`} {...dungeon} />
+						<Dungeon
+							id={`dungeon_${dungeon.dungeonName}`}
+							key={`dungeon_${dungeon.dungeonName}`}
+							{...dungeon}
+						/>
 					);
 				})}
 			</main>

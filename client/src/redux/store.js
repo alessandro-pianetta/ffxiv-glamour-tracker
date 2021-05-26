@@ -13,7 +13,7 @@ const configureStore = (initialState = undefined) => {
 	const reducers = combineReducers({
 		dungeon: dungeonReducer,
 		auth: authReducer,
-		notification: notificationReducer,
+		alerts: notificationReducer,
 	});
 
 	const store = createStore(reducers, initialState, composedEnhancers);

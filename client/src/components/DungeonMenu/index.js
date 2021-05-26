@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import styles from "./dungeonMenu.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Modal, Button, Container, Row, Col } from "react-bootstrap";
 import { addDungeon } from "../../redux/dungeon/actions";
 import dungeons from "../../consts/dungeons";
 import raids from "../../consts/raids";
+import { dungeonAlreadyExists } from "../../utils/dungeonUtils";
+import { setErrorMessage } from "../../redux/notification/actions";
 
-export default function () {
+export default function DungeonMenu() {
 	const dispatch = useDispatch();
 	const [modalIsOpen, setModal] = useState(false);
+	const userDungeons = useSelector(({ dungeon }) => dungeon.dungeons);
 
 	const dungeonNames = Object.keys(dungeons);
 	const raidNames = Object.keys(raids);
@@ -64,22 +67,32 @@ export default function () {
 					<Container>
 						<Row>
 							{expansionNames.map((expansion) => (
-								<Col sm={12} md={6} xl={3} key={expansion}>
+								<Col sm={12} md={6} xl={3} key={`menu_${expansion}`}>
 									<div className={styles.dungeonContainer}>
 										<h2 className={styles.dungeonName}>{expansion}</h2>
 										{instancesByExpansion[expansion].map((instanceName) => (
 											<h3
 												className={styles.dungeonItem}
-												key={instanceName}
+												key={`menu_${instanceName}`}
 												onClick={() => {
-													dispatch(
-														addDungeon(
-															instanceName,
-															dungeons[instanceName] || raids[instanceName],
-															expansion
-														)
-													);
-													setModal(!modalIsOpen);
+													if (
+														dungeonAlreadyExists(userDungeons, instanceName)
+													) {
+														dispatch(
+															setErrorMessage(
+																`${instanceName} has already been added to your list!`
+															)
+														);
+													} else {
+														dispatch(
+															addDungeon(
+																instanceName,
+																dungeons[instanceName] || raids[instanceName],
+																expansion
+															)
+														);
+														setModal(!modalIsOpen);
+													}
 												}}
 											>
 												{instanceName}

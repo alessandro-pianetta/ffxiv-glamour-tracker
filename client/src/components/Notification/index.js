@@ -1,15 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { Alert, Toast } from "react-bootstrap";
 import styles from "./notification.module.css";
 import { removeNotification } from "../../redux/notification/actions";
-
-const toastStyle = {
-	position: "fixed",
-	minWidth: "25%",
-	top: 25,
-	right: 25,
-};
 
 const toastBodyStyle = {
 	padding: 0,
@@ -22,49 +15,42 @@ const alertStyle = {
 	borderTopRightRadius: 0,
 };
 
-export default function Notification({ successMsg, errorMsg }) {
+export default function Notification({ alerts }) {
 	const dispatch = useDispatch();
-	const [headerText, setHeaderText] = useState("");
-	const [notificationType, setNotificationType] = useState("");
-	const [showNotification, setShowNotification] = useState(false);
-
-	useEffect(() => {
-		if (showNotification) setShowNotification(false);
-
-		if (successMsg) {
-			setHeaderText("Success!");
-			setNotificationType("success");
-		}
-
-		if (errorMsg) {
-			setHeaderText("Error!");
-			setNotificationType("danger");
-		}
-
-		if (successMsg || errorMsg) setShowNotification(true);
-	}, [successMsg, errorMsg]);
 
 	return (
-		<>
-			<Toast
-				style={toastStyle}
-				onClose={() => {
-					setShowNotification(false);
-					dispatch(removeNotification());
-				}}
-				show={showNotification}
-				delay={5000}
-				autohide
-			>
-				<Toast.Header>
-					<strong className="mr-auto">{headerText}</strong>
-				</Toast.Header>
-				<Toast.Body style={toastBodyStyle}>
-					<Alert style={alertStyle} variant={notificationType}>
-						<p>{errorMsg || successMsg}</p>
-					</Alert>
-				</Toast.Body>
-			</Toast>
-		</>
+		<div className={styles.container}>
+			{alerts.map((alert) => {
+				if (typeof alert.message !== "string") return null;
+
+				return (
+					<Toast
+						onClose={() => {
+							dispatch(removeNotification(alert.id));
+						}}
+						show={true}
+						delay={5000}
+						animation
+						autohide
+						key={alert.id}
+						bsPrefix={`toast ${styles.toast}`}
+					>
+						<Toast.Header>
+							<strong className="mr-auto">
+								{alert.type === "success" ? "Success" : "Error"}!
+							</strong>
+						</Toast.Header>
+						<Toast.Body bsPrefix={`toast-body ${styles.toastBody}`}>
+							<Alert
+								bsPrefix={`alert alert-${alert.type} ${styles.alert}`}
+								variant={alert.type}
+							>
+								<p>{alert.message}</p>
+							</Alert>
+						</Toast.Body>
+					</Toast>
+				);
+			})}
+		</div>
 	);
 }
